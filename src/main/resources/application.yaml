@@ -6,6 +6,11 @@ server:
   shutdown: graceful
 
 spring:
+  session:
+    timeout: 10m
+    redis:
+      namespace: bookshop:edge
+      repository-type: indexed
   data:
     redis:
       connect-timeout: 2s
@@ -47,6 +52,7 @@ spring:
                 name: orderCircuitBreaker
 
       default-filters:
+        - SaveSession
         - name: Retry
           args:
             retries: 3
